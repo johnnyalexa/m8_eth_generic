@@ -8,6 +8,8 @@ dhcp\dhcp_client.c
 
 dns\dnslkup.c
 
+drivers\m8_drivers.c
+
 enc28j60_tcp_ip_stack\enc28j60.c
 
 enc28j60_tcp_ip_stack\ip_arp_udp_tcp.c
@@ -23,6 +25,8 @@ ex_apps\client-www-dhcp\test_dhcp_www_client_pushbutton.c
 ex_apps\client-www\test_identi_ca.c
 
 ex_apps\client-www\test_web_client.c
+
+ex_apps\dhcp-tcp-client\dhcp_tcp_client.c
 
 ex_apps\server-www-dnstest\basic_web_server-dns-test.c
 

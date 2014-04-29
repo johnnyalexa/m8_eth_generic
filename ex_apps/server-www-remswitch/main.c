@@ -14,17 +14,20 @@
  *
  * Chip type: Atmega88 or Atmega168 or Atmega328 or Atmega644 with ENC28J60
  *********************************************/
+#include "../../app_main/m8_eth_config.h"
+#if defined(client_www_remswitch) && (client_www_remswitch!=0)
+
 #include <avr/io.h>
 #include <stdlib.h>
 #include <string.h>
 // http://www.nongnu.org/avr-libc/changes-1.8.html:
 #define __PROG_TYPES_COMPAT__
 #include <avr/pgmspace.h>
-#include "../ip_arp_udp_tcp.h"
-#include "../websrv_help_functions.h"
-#include "../enc28j60.h"
-#include "../timeout.h"
-#include "../net.h"
+#include "../../enc28j60_tcp_ip_stack/ip_arp_udp_tcp.h"
+#include "../../web_server_help_functions/websrv_help_functions.h"
+#include "../../enc28j60_tcp_ip_stack/enc28j60.h"
+#include "../../enc28j60_tcp_ip_stack/timeout.h"
+#include "../../enc28j60_tcp_ip_stack/net.h"
 
 // This software is a web server only. 
 //
@@ -185,8 +188,10 @@ int main(void){
         // of clock the next four instructions.
         // Note that the CKDIV8 Fuse determines the initial
         // value of the CKKPS bits.
+#if 0		
         CLKPR=(1<<CLKPCE); // change enable
         CLKPR=0; // "no pre-scaler"
+#endif		
         _delay_loop_1(0); // 60us
 
         /*initialize enc28j60*/
@@ -351,3 +356,5 @@ ANSWER:
         }
         return (0);
 }
+
+#endif // #if defined(client_www_remswitch) && (client_www_remswitch!=0)

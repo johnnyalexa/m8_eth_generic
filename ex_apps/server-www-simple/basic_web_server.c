@@ -9,12 +9,15 @@
  * http://tuxgraphics.org/electronics/
  * Chip type           : Atmega88/168/328/644 with ENC28J60
  *********************************************/
+#include "../../app_main/m8_eth_config.h"
+#if defined(client_www_simple) && (client_www_simple!=0)
+
 #include <avr/io.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../ip_arp_udp_tcp.h"
-#include "../enc28j60.h"
-#include "../timeout.h"
+#include "../../enc28j60_tcp_ip_stack/ip_arp_udp_tcp.h"
+#include "../../enc28j60_tcp_ip_stack/enc28j60.h"
+#include "../../enc28j60_tcp_ip_stack/timeout.h"
 
 // set output to VCC, red LED off
 #define LEDOFF PORTB|=(1<<PORTB1)
@@ -59,8 +62,10 @@ int main(void){
         // set the clock speed to 8MHz
         // set the clock prescaler. First write CLKPCE to enable setting of clock the
         // next four instructions.
+#if 0		
         CLKPR=(1<<CLKPCE);
         CLKPR=0; // 8 MHZ
+#endif		
         _delay_loop_1(0); // 60us
         DDRB|= (1<<DDB1); // LED, enable PB1, LED as output
         LEDOFF;
@@ -110,3 +115,5 @@ SENDTCP:
         }
         return (0);
 }
+
+#endif // #if defined(client_www_simple) && (client_www_simple!=0)

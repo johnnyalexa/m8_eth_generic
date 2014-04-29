@@ -13,8 +13,9 @@
  * Chip type           : ATMEGA88/ATMEGA168/ATMEGA328/ATMEGA644 with ENC28J60
  *********************************************/
 #include <avr/io.h>
-#include "ip_config.h"
-#include "enc28j60.h"
+//will include ip_config.h for the selected application
+#include "../app_main/m8_eth_config.h"
+#include "../enc28j60_tcp_ip_stack/enc28j60.h"
 //
 #define F_CPU 12500000UL  // 12.5 MHz
 #ifndef ALIBC_OLD
@@ -28,7 +29,7 @@ static uint8_t Enc28j60Bank;
 static int16_t gNextPacketPtr;
 #define ENC28J60_CONTROL_PORT   PORTB
 #define ENC28J60_CONTROL_DDR    DDRB
-#if defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__) 
+#if defined(__AVR_ATmega8__) || defined(__AVR_ATmega88__) || defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__) 
 #define ENC28J60_CONTROL_CS PORTB2
 #define ENC28J60_CONTROL_SO PORTB4
 #define ENC28J60_CONTROL_SI PORTB3

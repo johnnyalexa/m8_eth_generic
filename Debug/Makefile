@@ -40,9 +40,11 @@ SUBDIRS :=  \
 ../ex_apps/client-tuxgr-email \
 ../ex_apps/client-www \
 ../ex_apps/client-www-dhcp \
+../ex_apps/dhcp-tcp-client \
 ../ex_apps/server-www-simple \
 ../ex_apps/server-www-remswitch \
 ../ex_apps/server-www-dnstest \
+../drivers \
 ../web_server_help_functions
 
 
@@ -51,6 +53,7 @@ C_SRCS +=  \
 ../app_main/m8_eth_generic.c \
 ../dhcp/dhcp_client.c \
 ../dns/dnslkup.c \
+../drivers/m8_drivers.c \
 ../enc28j60_tcp_ip_stack/enc28j60.c \
 ../enc28j60_tcp_ip_stack/ip_arp_udp_tcp.c \
 ../ex_apps/client-tuxgr-email/test_emailnotify.c \
@@ -59,6 +62,7 @@ C_SRCS +=  \
 ../ex_apps/client-www-dhcp/test_dhcp_www_client_pushbutton.c \
 ../ex_apps/client-www/test_identi_ca.c \
 ../ex_apps/client-www/test_web_client.c \
+../ex_apps/dhcp-tcp-client/dhcp_tcp_client.c \
 ../ex_apps/server-www-dnstest/basic_web_server-dns-test.c \
 ../ex_apps/server-www-remswitch/main.c \
 ../ex_apps/server-www-simple/basic_web_server.c \
@@ -77,6 +81,7 @@ OBJS +=  \
 app_main/m8_eth_generic.o \
 dhcp/dhcp_client.o \
 dns/dnslkup.o \
+drivers/m8_drivers.o \
 enc28j60_tcp_ip_stack/enc28j60.o \
 enc28j60_tcp_ip_stack/ip_arp_udp_tcp.o \
 ex_apps/client-tuxgr-email/test_emailnotify.o \
@@ -85,6 +90,7 @@ ex_apps/client-www-dhcp/test_dhcp_www_client_adc0.o \
 ex_apps/client-www-dhcp/test_dhcp_www_client_pushbutton.o \
 ex_apps/client-www/test_identi_ca.o \
 ex_apps/client-www/test_web_client.o \
+ex_apps/dhcp-tcp-client/dhcp_tcp_client.o \
 ex_apps/server-www-dnstest/basic_web_server-dns-test.o \
 ex_apps/server-www-remswitch/main.o \
 ex_apps/server-www-simple/basic_web_server.o \
@@ -96,6 +102,7 @@ OBJS_AS_ARGS +=  \
 app_main/m8_eth_generic.o \
 dhcp/dhcp_client.o \
 dns/dnslkup.o \
+drivers/m8_drivers.o \
 enc28j60_tcp_ip_stack/enc28j60.o \
 enc28j60_tcp_ip_stack/ip_arp_udp_tcp.o \
 ex_apps/client-tuxgr-email/test_emailnotify.o \
@@ -104,6 +111,7 @@ ex_apps/client-www-dhcp/test_dhcp_www_client_adc0.o \
 ex_apps/client-www-dhcp/test_dhcp_www_client_pushbutton.o \
 ex_apps/client-www/test_identi_ca.o \
 ex_apps/client-www/test_web_client.o \
+ex_apps/dhcp-tcp-client/dhcp_tcp_client.o \
 ex_apps/server-www-dnstest/basic_web_server-dns-test.o \
 ex_apps/server-www-remswitch/main.o \
 ex_apps/server-www-simple/basic_web_server.o \
@@ -115,6 +123,7 @@ C_DEPS +=  \
 app_main/m8_eth_generic.d \
 dhcp/dhcp_client.d \
 dns/dnslkup.d \
+drivers/m8_drivers.d \
 enc28j60_tcp_ip_stack/enc28j60.d \
 enc28j60_tcp_ip_stack/ip_arp_udp_tcp.d \
 ex_apps/client-tuxgr-email/test_emailnotify.d \
@@ -123,6 +132,7 @@ ex_apps/client-www-dhcp/test_dhcp_www_client_adc0.d \
 ex_apps/client-www-dhcp/test_dhcp_www_client_pushbutton.d \
 ex_apps/client-www/test_identi_ca.d \
 ex_apps/client-www/test_web_client.d \
+ex_apps/dhcp-tcp-client/dhcp_tcp_client.d \
 ex_apps/server-www-dnstest/basic_web_server-dns-test.d \
 ex_apps/server-www-remswitch/main.d \
 ex_apps/server-www-simple/basic_web_server.d \
@@ -134,6 +144,7 @@ C_DEPS_AS_ARGS +=  \
 app_main/m8_eth_generic.d \
 dhcp/dhcp_client.d \
 dns/dnslkup.d \
+drivers/m8_drivers.d \
 enc28j60_tcp_ip_stack/enc28j60.d \
 enc28j60_tcp_ip_stack/ip_arp_udp_tcp.d \
 ex_apps/client-tuxgr-email/test_emailnotify.d \
@@ -142,6 +153,7 @@ ex_apps/client-www-dhcp/test_dhcp_www_client_adc0.d \
 ex_apps/client-www-dhcp/test_dhcp_www_client_pushbutton.d \
 ex_apps/client-www/test_identi_ca.d \
 ex_apps/client-www/test_web_client.d \
+ex_apps/dhcp-tcp-client/dhcp_tcp_client.d \
 ex_apps/server-www-dnstest/basic_web_server-dns-test.d \
 ex_apps/server-www-remswitch/main.d \
 ex_apps/server-www-simple/basic_web_server.d \
@@ -160,6 +172,10 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 LIB_DEP+= 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 
@@ -216,6 +232,13 @@ dns/%.o: ../dns/%.c
 	@echo Finished building: $<
 	
 
+drivers/%.o: ../drivers/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 4.8.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1051\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 enc28j60_tcp_ip_stack/%.o: ../enc28j60_tcp_ip_stack/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
@@ -238,6 +261,13 @@ ex_apps/client-www-dhcp/%.o: ../ex_apps/client-www-dhcp/%.c
 	
 
 ex_apps/client-www/%.o: ../ex_apps/client-www/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 4.8.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1051\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+ex_apps/dhcp-tcp-client/%.o: ../ex_apps/dhcp-tcp-client/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1051\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

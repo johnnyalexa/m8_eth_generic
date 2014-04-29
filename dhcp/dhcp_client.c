@@ -21,7 +21,8 @@
 #include "../enc28j60_tcp_ip_stack/net.h"
 #include "../enc28j60_tcp_ip_stack/enc28j60.h"
 #include "../enc28j60_tcp_ip_stack/ip_arp_udp_tcp.h"
-#include "ip_config.h"
+//will include ip_config.h for the selected application
+#include "../app_main/m8_eth_config.h"
 
 #ifndef UDP_client
 #error "ERROR: you need to enable UDP_client support in ip_config.h to use the DHCP client"

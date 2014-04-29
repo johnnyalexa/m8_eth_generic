@@ -21,7 +21,8 @@
 #ifndef ENC28J60_H
 #define ENC28J60_H
 #include <inttypes.h>
-#include "ip_config.h" // we set this ENC28J60_BROADCAST flag from ip_config.h to have one place with all the code optimisation flags
+#include "../app_main/m8_eth_config.h"
+//#include "ip_config.h" // we set this ENC28J60_BROADCAST flag from ip_config.h to have one place with all the code optimisation flags
 
 // ENC28J60 Control Registers
 // Control register definitions are a combination of address,

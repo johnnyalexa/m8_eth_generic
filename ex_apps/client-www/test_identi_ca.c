@@ -12,6 +12,9 @@
  *
  * Chip type           : Atmega168 or Atmega328 or Atmega644 with ENC28J60
  *********************************************/
+#include "../../app_main/m8_eth_config.h"
+#if defined(client_www) && (client_www!=0)
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
@@ -19,12 +22,13 @@
 // http://www.nongnu.org/avr-libc/changes-1.8.html:
 #define __PROG_TYPES_COMPAT__
 #include <avr/pgmspace.h>
-#include "../ip_arp_udp_tcp.h"
-#include "../websrv_help_functions.h"
-#include "../enc28j60.h"
-#include "../timeout.h"
-#include "../net.h"
-#include "../dnslkup.h"
+#include "../../enc28j60_tcp_ip_stack/ip_arp_udp_tcp.h"
+#include "../../web_server_help_functions/websrv_help_functions.h"
+#include "../../enc28j60_tcp_ip_stack/enc28j60.h"
+#include "../../enc28j60_tcp_ip_stack/timeout.h"
+#include "../../enc28j60_tcp_ip_stack/net.h"
+#include "../../dns/dnslkup.h"
+#include "../../dhcp/dhcp_client.h"
 
 // Please modify the following lines. mac and ip have to be unique
 // in your local area network. You can not have the same numbers in
@@ -191,6 +195,7 @@ uint16_t print_webpage(uint8_t *buf)
 * You must call once sei() in the main program */
 void init_cnt2(void)
 {
+#if 0	
 	cnt2step=0;
 	PRR&=~(1<<PRTIM2); // write power reduction register to zero
 	TIMSK2=(1<<OCIE2A); // compare match on OCR2A
@@ -200,6 +205,7 @@ void init_cnt2(void)
 	// divide clock by 1024: 12.5MHz/128=12207 Hz
 	TCCR2B=(1<<CS22)|(1<<CS21)|(1<<CS20); // clock divider, start counter
 	// 12207/244=50Hz
+#endif	
 }
 
 // called when TCNT2==OCR2A
@@ -275,8 +281,10 @@ int main(void){
         // of clock the next four instructions.
         // Note that the CKDIV8 Fuse determines the initial
         // value of the CKKPS bits.
+#if 0		
         CLKPR=(1<<CLKPCE); // change enable
         CLKPR=0; // "no pre-scaler"
+#endif		
         _delay_loop_1(0); // 60us
 
 
@@ -420,3 +428,5 @@ SENDTCP:
         }
         return (0);
 }
+
+#endif // #if defined(client_www) && (client_www!=0)

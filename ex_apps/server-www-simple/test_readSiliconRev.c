@@ -9,13 +9,16 @@
  * http://tuxgraphics.org/electronics/
  * Chip type           : Atmega88/168/328/644 with ENC28J60
  *********************************************/
+#include "../../app_main/m8_eth_config.h"
+#if defined(client_www_simple) && (client_www_simple!=0)
+
 #include <avr/io.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../ip_arp_udp_tcp.h"
-#include "../enc28j60.h"
-#include "../timeout.h"
-#include "../net.h"
+#include "../../enc28j60_tcp_ip_stack/ip_arp_udp_tcp.h"
+#include "../../enc28j60_tcp_ip_stack/enc28j60.h"
+#include "../../enc28j60_tcp_ip_stack/timeout.h"
+#include "../../enc28j60_tcp_ip_stack/net.h"
 
 // please modify the following two lines. mac and ip have to be unique
 // in your local area network. You can not have the same numbers in
@@ -70,8 +73,10 @@ int main(void){
         // of clock the next four instructions.
         // Note that the CKDIV8 Fuse determines the initial
         // value of the CKKPS bits.
+#if 0		
         CLKPR=(1<<CLKPCE);
         CLKPR=0; // 8 MHZ
+#endif		
         _delay_loop_1(0); // 60us
         
         /*initialize enc28j60*/
@@ -147,3 +152,5 @@ UDP:
         }
         return (0);
 }
+
+#endif // #if defined(client_www_simple) && (client_www_simple!=0)

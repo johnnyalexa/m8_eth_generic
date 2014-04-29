@@ -29,6 +29,9 @@
  *
  * Chip type           : Atmega168 or Atmega328 or Atmega644 with ENC28J60
  *********************************************/
+#include "../../app_main/m8_eth_config.h"
+#if defined(client_www_dhcp1) && (client_www_dhcp1!=0)
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
@@ -36,13 +39,13 @@
 // http://www.nongnu.org/avr-libc/changes-1.8.html:
 #define __PROG_TYPES_COMPAT__
 #include <avr/pgmspace.h>
-#include "../ip_arp_udp_tcp.h"
-#include "../websrv_help_functions.h"
-#include "../enc28j60.h"
-#include "../timeout.h"
-#include "../net.h"
-#include "../dnslkup.h"
-#include "../dhcp_client.h"
+#include "../../enc28j60_tcp_ip_stack/ip_arp_udp_tcp.h"
+#include "../../web_server_help_functions/websrv_help_functions.h"
+#include "../../enc28j60_tcp_ip_stack/enc28j60.h"
+#include "../../enc28j60_tcp_ip_stack/timeout.h"
+#include "../../enc28j60_tcp_ip_stack/net.h"
+#include "../../dns/dnslkup.h"
+#include "../../dhcp/dhcp_client.h"
 
 //
 // Please modify the following lines. mac and ip have to be unique
@@ -125,7 +128,8 @@ void timer_init(void)
         OCR1AH=0x2f;
         OCR1AL=0xaf;
         // interrupt mask bit:
-        TIMSK1 = (1 << OCIE1A);
+		//TIMSK1 for atmega88
+        TIMSK = (1 << OCIE1A);
 }
 
 
@@ -167,8 +171,10 @@ int main(void){
         // of clock the next four instructions.
         // Note that the CKDIV8 Fuse determines the initial
         // value of the CKKPS bits.
+#if 0 		
         CLKPR=(1<<CLKPCE); // change enable
         CLKPR=0; // "no pre-scaler"
+#endif		
         _delay_loop_1(0); // 60us
 
         /*initialize enc28j60*/
@@ -283,3 +289,5 @@ int main(void){
         }
         return (0);
 }
+
+#endif // #if defined(client_www_dhcp) && (client_www_dhcp!=0)

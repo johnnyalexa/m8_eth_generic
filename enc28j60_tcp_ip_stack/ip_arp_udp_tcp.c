@@ -24,7 +24,9 @@
 #include <stdlib.h>
 #include "net.h"
 #include "enc28j60.h"
-#include "ip_config.h"
+//will include ip_config.h for the selected application
+#include "../app_main/m8_eth_config.h"
+
 
 // I use them to debug stuff:
 #define LEDOFF PORTB|=(1<<PORTB1)

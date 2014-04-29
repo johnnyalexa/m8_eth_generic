@@ -1,20 +1,19 @@
-/*********************************************
- * vim:sw=8:ts=8:si:et
- * To use the above modeline in vim you must have "set modeline" in your .vimrc
- * Author: Guido Socher 
- * Copyright:LGPL V2
- * See http://www.gnu.org/licenses/old-licenses/lgpl-2.0.html
+/*
+ * ip_config.h
  *
- * This file can be used to decide which functionallity of the
- * TCP/IP stack shall be available. By picking the right functions
- * you can significantly reduce the size of the resulting code.
- *
- *********************************************/
-//@{
-#ifndef IP_CONFIG_H
-#define IP_CONFIG_H
+ * Created: 4/29/2014 9:06:37 PM
+ *  Author: John
+ */ 
+
+
+#ifndef IP_CONFIG_H_
+#define IP_CONFIG_H_
 
 //------------- functions in ip_arp_udp_tcp.c --------------
+
+#define TCP_client
+
+
 // an NTP client (ntp clock):
 #undef NTP_client
 // a spontanious sending UDP client (needed as well for DNS and DHCP)
@@ -25,7 +24,8 @@
 #define ENC28J60_BROADCAST
 
 // a server answering to UDP messages
-#undef UDP_server
+#define UDP_server
+//#undef UDP_server
 // a web server
 #undef WWW_server
 //
@@ -45,7 +45,7 @@
 // into the url (like a Form action of type GET):
 
 //#define WWW_client
-
+#undef WWW_client
 // if you do not need a browser and just a server:
 //#undef WWW_client
 //
@@ -57,5 +57,6 @@
 // function to encode a URL (mostly needed for a web client)
 #define URLENCODE_websrv_help
 
-#endif /* IP_CONFIG_H */
-//@}
+
+#endif /* IP_CONFIG_H_ */
+

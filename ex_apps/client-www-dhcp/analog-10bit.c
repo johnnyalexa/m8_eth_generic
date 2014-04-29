@@ -3,9 +3,12 @@
 * Author: Guido Socher
 * Copyright: GPL V2
 **********************************************/
+#include "../../app_main/m8_eth_config.h"
+#if defined(client_www_dhcp) && (client_www_dhcp!=0)
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "../timeout.h"
+#include "../../enc28j60_tcp_ip_stack/timeout.h"
 
 // 1.1V Vref with capacitor on AREF pin:
 #if defined(__AVR_ATmega644__)||defined(__AVR_ATmega644P__)
@@ -40,9 +43,11 @@ uint16_t convertanalog(unsigned char channel)
         ADMUX=ADMUX_REFSBITS |(channel & 0x7);
         // 
         // switch off digital input line:
+#if 0		
         if (channel <6){// 6 and 7 have no digital input
                 DIDR0=(1<<channel)& 0x3f;
         }
+#endif		
         ADCSRA=(1<<ADEN)|ADCSRA_PSBITS;
         //  start conversion 
         ADCSRA|= (1<<ADSC);
@@ -53,3 +58,4 @@ uint16_t convertanalog(unsigned char channel)
         return(result);
 }
 
+#endif // #if defined(client_www_dhcp) && (client_www_dhcp!=0)

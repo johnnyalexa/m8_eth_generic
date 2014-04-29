@@ -37,6 +37,7 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <avrtool />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -103,9 +104,11 @@
     <Folder Include="ex_apps\client-tuxgr-email" />
     <Folder Include="ex_apps\client-www" />
     <Folder Include="ex_apps\client-www-dhcp" />
+    <Folder Include="ex_apps\dhcp-tcp-client" />
     <Folder Include="ex_apps\server-www-simple" />
     <Folder Include="ex_apps\server-www-remswitch" />
     <Folder Include="ex_apps\server-www-dnstest" />
+    <Folder Include="drivers" />
     <Folder Include="web_server_help_functions" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +131,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="dns\dnslkup.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\m8_drivers.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\m8_drivers.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="enc28j60_tcp_ip_stack\enc28j60.c">
@@ -176,6 +185,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ex_apps\client-www\test_web_client.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ex_apps\dhcp-tcp-client\dhcp_tcp_client.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ex_apps\dhcp-tcp-client\ip_config.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ex_apps\server-www-dnstest\basic_web_server-dns-test.c">

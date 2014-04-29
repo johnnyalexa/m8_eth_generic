@@ -12,7 +12,10 @@
 //@{
 #ifndef IP_ARP_UDP_TCP_H
 #define IP_ARP_UDP_TCP_H 1
-#include "ip_config.h"
+
+//will include ip_config.h for the selected application
+#include "../app_main/m8_eth_config.h" 
+
 #include <avr/pgmspace.h>
 
 // set my own mac address:

@@ -14,7 +14,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "ip_config.h"
+//will include ip_config.h for the selected application
+#include "../app_main/m8_eth_config.h"
 
 #ifdef FROMDECODE_websrv_help
 // search for a string of the form key=value in

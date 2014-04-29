@@ -13,7 +13,9 @@
 //@{
 #ifndef WEBSRV_HELP_FUNCTIONS_H
 #define WEBSRV_HELP_FUNCTIONS_H
-#include "ip_config.h"
+//will include ip_config.h for the selected application
+#include "../app_main/m8_eth_config.h"
+
 
 #ifdef FROMDECODE_websrv_help
 // These functions are documented in websrv_help_functions.c. 
