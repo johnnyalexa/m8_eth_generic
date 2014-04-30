@@ -109,6 +109,7 @@
     <Folder Include="ex_apps\server-www-remswitch" />
     <Folder Include="ex_apps\server-www-dnstest" />
     <Folder Include="drivers" />
+    <Folder Include="vsix\" />
     <Folder Include="web_server_help_functions" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +132,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="dns\dnslkup.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\m88_uart.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\m8_drivers.c">
@@ -223,6 +227,14 @@
     <Compile Include="web_server_help_functions\websrv_help_functions.h">
       <SubType>compile</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vsix\extension.xdkmanifest">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="vsix\License.txt">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

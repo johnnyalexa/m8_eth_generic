@@ -8,6 +8,8 @@ dhcp\dhcp_client.c
 
 dns\dnslkup.c
 
+drivers\m88_uart.c
+
 drivers\m8_drivers.c
 
 enc28j60_tcp_ip_stack\enc28j60.c

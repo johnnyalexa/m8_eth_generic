@@ -45,6 +45,7 @@ SUBDIRS :=  \
 ../ex_apps/server-www-remswitch \
 ../ex_apps/server-www-dnstest \
 ../drivers \
+../vsix/ \
 ../web_server_help_functions
 
 
@@ -53,6 +54,7 @@ C_SRCS +=  \
 ../app_main/m8_eth_generic.c \
 ../dhcp/dhcp_client.c \
 ../dns/dnslkup.c \
+../drivers/m88_uart.c \
 ../drivers/m8_drivers.c \
 ../enc28j60_tcp_ip_stack/enc28j60.c \
 ../enc28j60_tcp_ip_stack/ip_arp_udp_tcp.c \
@@ -81,6 +83,7 @@ OBJS +=  \
 app_main/m8_eth_generic.o \
 dhcp/dhcp_client.o \
 dns/dnslkup.o \
+drivers/m88_uart.o \
 drivers/m8_drivers.o \
 enc28j60_tcp_ip_stack/enc28j60.o \
 enc28j60_tcp_ip_stack/ip_arp_udp_tcp.o \
@@ -102,6 +105,7 @@ OBJS_AS_ARGS +=  \
 app_main/m8_eth_generic.o \
 dhcp/dhcp_client.o \
 dns/dnslkup.o \
+drivers/m88_uart.o \
 drivers/m8_drivers.o \
 enc28j60_tcp_ip_stack/enc28j60.o \
 enc28j60_tcp_ip_stack/ip_arp_udp_tcp.o \
@@ -123,6 +127,7 @@ C_DEPS +=  \
 app_main/m8_eth_generic.d \
 dhcp/dhcp_client.d \
 dns/dnslkup.d \
+drivers/m88_uart.d \
 drivers/m8_drivers.d \
 enc28j60_tcp_ip_stack/enc28j60.d \
 enc28j60_tcp_ip_stack/ip_arp_udp_tcp.d \
@@ -144,6 +149,7 @@ C_DEPS_AS_ARGS +=  \
 app_main/m8_eth_generic.d \
 dhcp/dhcp_client.d \
 dns/dnslkup.d \
+drivers/m88_uart.d \
 drivers/m8_drivers.d \
 enc28j60_tcp_ip_stack/enc28j60.d \
 enc28j60_tcp_ip_stack/ip_arp_udp_tcp.d \
@@ -172,6 +178,8 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 LIB_DEP+= 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

@@ -39,7 +39,8 @@ static uint8_t mymac[6] = {0x54,0x55,0x58,0x10,0x00,0x27};
 
 //// listen port for udp
 #define MYUDPPORT 4601
-#define MYTCPPORT 55056
+//#define MYTCPPORT 55056
+#define MYTCPPORT 5555
 //static const char webserver_vhost[]="tuxgraphics.org";
 //
 // Our DNS resolver can only look up IP addresses in the public internet
@@ -53,7 +54,8 @@ static uint8_t mymac[6] = {0x54,0x55,0x58,0x10,0x00,0x27};
 // then replace upld by sdat further down in the function client_browse_url().
 //
 // -- there should not be any need to change something below this line --
-static uint8_t otherside_www_ip[4]={192,168,0,100}; // dns will fill this
+//static uint8_t otherside_www_ip[4]={192,168,0,100}; // dns will fill this
+static uint8_t otherside_www_ip[4]={192,168,0,10}; // dns will fill this
 // My own IP (DHCP will provide a value for it):
 static uint8_t myip[4]={0,0,0,0};
 // Default gateway (DHCP will provide a value for it):
@@ -61,7 +63,8 @@ static uint8_t gwip[4]={0,0,0,0};
 #define TRANS_NUM_GWMAC 1
 static uint8_t gwmac[6];
 #define TRANS_NUM_WEBMAC 2
-static uint8_t otherside_www_gwmac[6]={0x78,0x92,0x9C,0x43,0x53,0x4A};
+static uint8_t otherside_www_gwmac[6];
+//static uint8_t otherside_www_gwmac[6]={0x78,0x92,0x9C,0x43,0x53,0x4A};
 // Netmask (DHCP will provide a value for it):
 static uint8_t netmask[4];
 static char urlvarstr[32];
@@ -192,7 +195,7 @@ void send_tcp_data(void){
 	
 	uint8_t fd;
 	
-	//get_mac_with_arp(otherside_www_ip,TRANS_NUM_WEBMAC,&arpresolver_result_callback);
+	get_mac_with_arp(otherside_www_ip,TRANS_NUM_WEBMAC,&arpresolver_result_callback);
 	
 	
 	fd=client_tcp_req(&your_client_tcp_result_callback,&your_client_tcp_datafill_callback,MYTCPPORT,otherside_www_ip,otherside_www_gwmac);
@@ -220,6 +223,7 @@ int main(void){
 	_delay_loop_1(0); // 60us
 	
 	timer_init();
+	Init_Uart();
 	sei();
 
 	/* Magjack leds configuration, see enc28j60 datasheet, page 11 */
@@ -363,7 +367,8 @@ int main(void){
 			}
 			continue;
 		}
-#endif		
+#endif	
+#if 0	
 		if(dat_p==0){ // plen!=0
 			// check for incomming messages not processed
 			// as part of packetloop_arp_icmp_tcp, e.g udp messages
@@ -391,7 +396,11 @@ UDP:
 		
 		// when dat_p!=0 then we get normally a http
 		// request but this is not a web server so we do nothing.
+#endif		
+		
 	}
+
+	
 	return (0);
 }
 
